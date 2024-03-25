@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Streaming</title>
+    <style>
+        .buttonstyle {
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        
+        }
+        .button1 {background-color: #04AA6D;} /* Green */
+    </style>
+</head>
+<body>
+    <h1>Video Streaming with OpenCV</h1>
+    <a href="/video_feed"><button type = 'button' class="buttonstyle button1">Start Video</button></a>
+    <video id="videoStream" width="640" height="480" autoplay></video>
+    <a href="/"><button type = 'button' class="buttonstyle button1">Back</button></a>
+    <script>
+        const video = document.getElementById('videoStream');
+        const ws = new WebSocket('ws://' + window.location.host + '/video_feed');
+
+        ws.onmessage = function (event) {
+            video.src = URL.createObjectURL(event.data);
+        };
+    </script>
+    
+</body>
+</html>
